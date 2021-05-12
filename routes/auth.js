@@ -10,4 +10,10 @@ router.get('/google/callback', passport.authenticate('google', { failureRedirect
     res.redirect('/dashboard')
 })
 
+//User logout - /auth/logout
+router.get('/logout', (req, res) => {
+    req.logout()
+    res.redirect('/')
+})
+
 module.exports = router
