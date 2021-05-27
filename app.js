@@ -19,6 +19,9 @@ if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'))
 }
 
+app.use(express.urlencoded({ extended: false }))
+app.use(express.json())
+
 //Handlebars
 app.engine('.hbs', exphbs({defaultLayout: 'main', extname: '.hbs'}))
 app.set('view engine', '.hbs')
@@ -40,6 +43,7 @@ app.use(express.static('public'))
 //get routes
 app.use('/', require('./routes/index'))
 app.use('/auth', require('./routes/auth'))
+app.use('/stories', require('./routes/stories'))
 
 const PORT = process.env.PORT || 3000
 

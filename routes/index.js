@@ -3,12 +3,14 @@ const router = express.Router()
 const { ensureAuth, ensureGuest } = require('../middleware/auth')
 const Story = require('../models/Story')
 
+//Login page - GET /
 router.get('/', ensureGuest, (req, res) => {
     res.render('login', {
         layout: 'login',
     })
 })
 
+//User dashboard - GET /dashboard
 router.get('/dashboard', ensureAuth, async (req, res) => {
     try {
         const stories = await Story.find({ user: req.user.id }).lean()
