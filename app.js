@@ -19,7 +19,7 @@ if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
 
-const { formatDate } = require("./helpers/hbs");
+const { formatDate, truncate, stripTags } = require("./helpers/hbs");
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -30,6 +30,8 @@ app.engine(
   exphbs({
     helpers: {
       formatDate,
+      stripTags,
+      truncate
     },
     defaultLayout: "main",
     extname: ".hbs",
