@@ -19,7 +19,7 @@ if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
 
-const { formatDate, truncate, stripTags } = require("./helpers/hbs");
+const { formatDate, truncate, stripTags, editIcon } = require("./helpers/hbs");
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -31,7 +31,8 @@ app.engine(
     helpers: {
       formatDate,
       stripTags,
-      truncate
+      truncate,
+      editIcon
     },
     defaultLayout: "main",
     extname: ".hbs",
@@ -51,6 +52,11 @@ app.use(
 //Passport middleware
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use((req, res, next) => {
+  res.locals.user = req.user || null
+  next()
+})
 
 //static folder
 app.use(express.static("public"));
